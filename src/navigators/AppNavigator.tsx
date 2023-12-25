@@ -9,6 +9,7 @@ import {
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import {HomeScreen} from '../screens/HomeScreen';
+import {DetailsScreen} from '../screens/DetailsScreen';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -23,6 +24,13 @@ export const AppNavigator = () => {
           <RootStack.Screen
             name={Route.Home}
             component={HomeScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <RootStack.Screen
+            name={Route.Details}
+            component={DetailsScreen}
             options={{
               headerShown: false,
             }}

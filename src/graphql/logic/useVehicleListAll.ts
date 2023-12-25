@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {NetworkStatus, useQuery} from '@apollo/client';
+import {NetworkStatus, useApolloClient, useQuery} from '@apollo/client';
 
 import {GET_VEHICLE_LIST_ALL} from '../queries/getVehicleListAll';
 
@@ -8,8 +8,14 @@ interface Props {
 }
 
 export const useVehicleListAll = () => {
-  const {loading, error, data} = useQuery(GET_VEHICLE_LIST_ALL);
+  const client = useApolloClient();
 
+  const {loading, error, data} = useQuery(GET_VEHICLE_LIST_ALL);
+  data &&
+    client.writeQuery({
+      query: GET_VEHICLE_LIST_ALL,
+      data,
+    });
   return {
     loading,
     error,

@@ -1,4 +1,4 @@
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {Button, FlatList, StyleSheet, Text, View} from 'react-native';
 
 import React, {useEffect} from 'react';
 
@@ -30,6 +30,10 @@ export const HomeScreen = ({
           }}
         />
       )}
+      <Button
+        title="Details"
+        onPress={() => navigation.navigate(Route.Details)}
+      />
     </View>
   );
 };
