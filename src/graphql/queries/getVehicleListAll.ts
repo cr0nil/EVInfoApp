@@ -1,4 +1,4 @@
-import {gql} from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export interface GetCategoryProductsVars {
   id: string;
@@ -14,47 +14,17 @@ export interface CategoryProductsDataType {
 }
 
 export const GET_VEHICLE_LIST_ALL = gql`
-  query vehicleListAll {
-    vehicleList(page: 1, size: 10) {
+  query vehicleListAll($search: String) {
+    vehicleList(page: 1, size: 10, search: $search) {
       id
       naming {
         make
         model
-        version
-        edition
         chargetrip_version
       }
-      drivetrain {
-        type
-      }
-      connectors {
-        standard
-        power
-        max_electric_power
-        time
-        speed
-      }
-      adapters {
-        standard
-        power
-        max_electric_power
-        time
-        speed
-      }
-      battery {
-        usable_kwh
-        full_kwh
-      }
-      body {
-        seats
-      }
-      availability {
-        status
-      }
-      range {
-        chargetrip_range {
-          best
-          worst
+      media {
+        image {
+          thumbnail_url
         }
       }
     }

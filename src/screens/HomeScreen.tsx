@@ -1,18 +1,17 @@
-import {Button, FlatList, StyleSheet, Text, View} from 'react-native';
+import { Button, FlatList, StyleSheet, Text, View } from "react-native";
 
-import React, {useEffect} from 'react';
+import React, { useEffect } from "react";
 
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {useVehicleListAll} from '../graphql/logic/useVehicleListAll';
-import {RootStackParamList, Route} from '../navigators/typeScreen';
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useVehicleListAll } from "../graphql/logic/useVehicleListAll";
+import { RootStackParamList, Route } from "../navigators/typeScreen";
 
 export const HomeScreen = ({
   navigation,
 }: NativeStackScreenProps<RootStackParamList, Route.Home>) => {
   useEffect(() => {}, []);
-  const {loading, error, data} = useVehicleListAll();
+  const { loading, error, data } = useVehicleListAll("");
   //to do
-  console.log('data', data?.vehicleList, error, loading);
 
   return (
     <View style={styles.container}>
@@ -20,8 +19,8 @@ export const HomeScreen = ({
         <Text>Something went wrong</Text>
       ) : (
         <FlatList
-          data={data?.vehicleList}
-          renderItem={({item}) => {
+          data={data}
+          renderItem={({ item }) => {
             return (
               <Text>
                 {item?.naming?.make} {item?.naming?.model}
@@ -39,5 +38,5 @@ export const HomeScreen = ({
 };
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: 'white'},
+  container: { flex: 1, backgroundColor: "white" },
 });
