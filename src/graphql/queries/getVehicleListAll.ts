@@ -14,8 +14,8 @@ export interface CategoryProductsDataType {
 }
 
 export const GET_VEHICLE_LIST_ALL = gql`
-  query vehicleListAll($search: String) {
-    vehicleList(page: 1, size: 10, search: $search) {
+  query vehicleListAll($search: String, $page: Int) {
+    vehicleList(page: $page, size: 10, search: $search) {
       id
       naming {
         make

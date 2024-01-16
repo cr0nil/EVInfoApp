@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { NetworkStatus, useApolloClient, useQuery } from "@apollo/client";
 
 import { GET_VEHICLE_LIST_ALL } from "../queries/getVehicleListAll";
@@ -7,28 +6,41 @@ interface Props {
   categoryId: string;
 }
 
-export const useVehicleListAll = (search: string) => {
+export const useVehicleListAll = (search: string, page: number) => {
   const client = useApolloClient();
   const dataCache =
     client.readQuery({
       query: GET_VEHICLE_LIST_ALL,
     }) ?? [];
-  const { loading, error, data } = useQuery(GET_VEHICLE_LIST_ALL, {
-    variables: { search },
+  const { loading, error, data, fetchMore } = useQuery(GET_VEHICLE_LIST_ALL, {
+    variables: { search, page },
   });
 
   data &&
     client.writeQuery({
       query: GET_VEHICLE_LIST_ALL,
       data: {
-        vehicleList: [...data?.vehicleList, ...(dataCache?.vehicleList ?? [])],
+        vehicleList: data?.vehicleList, //to do
       },
     });
   return {
     loading,
     error,
-    data: !!data?.vehicleList
-      ? [...data?.vehicleList, ...(dataCache?.vehicleList ?? [])]
-      : [],
+    data: data?.vehicleList,
+    loadMore: () => {
+      fetchMore({
+        variables: { page: data?.vehicleList.length / 10 + 1 },
+        updateQuery: (prevResult, { fetchMoreResult }) => {
+          if (!fetchMoreResult) {
+            return prevResult;
+          }
+          fetchMoreResult.vehicleList = [
+            ...prevResult.vehicleList,
+            ...fetchMoreResult.vehicleList,
+          ];
+          return { ...fetchMoreResult };
+        },
+      });
+    },
   };
 };

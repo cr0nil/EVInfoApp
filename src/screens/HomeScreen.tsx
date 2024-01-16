@@ -1,16 +1,18 @@
 import { Button, FlatList, StyleSheet, Text, View } from "react-native";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useVehicleListAll } from "../graphql/logic/useVehicleListAll";
 import { RootStackParamList, Route } from "../navigators/typeScreen";
+import FastImage from "react-native-fast-image";
 
 export const HomeScreen = ({
   navigation,
 }: NativeStackScreenProps<RootStackParamList, Route.Home>) => {
+  const [page, setPage] = useState(0);
   useEffect(() => {}, []);
-  const { loading, error, data } = useVehicleListAll("");
+  const { loading, error, data, loadMore } = useVehicleListAll("", page);
   //to do
 
   return (
@@ -20,13 +22,25 @@ export const HomeScreen = ({
       ) : (
         <FlatList
           data={data}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }) => {
             return (
-              <Text>
-                {item?.naming?.make} {item?.naming?.model}
-              </Text>
+              <View>
+                <FastImage
+                  style={{ width: 200, height: 200 }}
+                  source={{
+                    uri: item.media.image?.thumbnail_url,
+                    priority: FastImage.priority.normal,
+                  }}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+                <Text>
+                  {item?.naming?.make} {item?.naming?.model}
+                </Text>
+              </View>
             );
           }}
+          onEndReached={loadMore}
         />
       )}
       <Button
