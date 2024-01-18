@@ -31,8 +31,10 @@ export const DetailsScreen = ({
             }}
             resizeMode={FastImage.resizeMode.contain}
           />
-          <Text>{data.vehicle.naming?.make}</Text>
-          <Text>{data.vehicle.naming?.model}</Text>
+          <Text style={styles.text}>
+            {data.vehicle.naming?.make} - {data.vehicle.naming?.model}
+          </Text>
+
           <Text>Battery: {data.vehicle.battery?.usable_kwh}kWh</Text>
           <Text>Top speed: {data.vehicle.performance?.top_speed}mph</Text>
         </>
@@ -43,4 +45,5 @@ export const DetailsScreen = ({
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "white", padding: 10 },
+  text: { fontSize: 20, fontWeight: "bold" },
 });
