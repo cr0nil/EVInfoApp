@@ -1,4 +1,4 @@
-### 1. Client (React Native)
+### 1. Client (React Native) - basic app
 
--   **React Navigation:** Manages in-app navigation.
--   **Apollo Client:** Communicates with the GraphQL server, fetching and updating data.
+- **React Navigation:** Manages in-app navigation.
+- **Apollo Client:** Communicates with the GraphQL server, fetching data.

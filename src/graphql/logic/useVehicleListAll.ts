@@ -3,17 +3,17 @@ import { NetworkStatus, useApolloClient, useQuery } from "@apollo/client";
 import { GET_VEHICLE_LIST_ALL } from "../queries/getVehicleListAll";
 
 interface Props {
-  categoryId: string;
+  search: string;
 }
 
-export const useVehicleListAll = (search: string, page: number) => {
+export const useVehicleListAll = (search: string) => {
   const client = useApolloClient();
   const dataCache =
     client.readQuery({
       query: GET_VEHICLE_LIST_ALL,
     }) ?? [];
   const { loading, error, data, fetchMore } = useQuery(GET_VEHICLE_LIST_ALL, {
-    variables: { search, page },
+    variables: { search },
   });
 
   data &&
@@ -39,6 +39,14 @@ export const useVehicleListAll = (search: string, page: number) => {
             ...fetchMoreResult.vehicleList,
           ];
           return { ...fetchMoreResult };
+        },
+      });
+    },
+    refetch: () => {
+      client.writeQuery({
+        query: GET_VEHICLE_LIST_ALL,
+        data: {
+          vehicleList: data?.vehicleList,
         },
       });
     },

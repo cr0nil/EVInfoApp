@@ -6,13 +6,6 @@ export interface GetCategoryProductsVars {
   currentPage?: number;
 }
 
-export interface CategoryProductsDataType {
-  products: {
-    total_count: number;
-    items: Array<ProductInListType>;
-  };
-}
-
 export const GET_VEHICLE_LIST_ALL = gql`
   query vehicleListAll($search: String, $page: Int) {
     vehicleList(page: $page, size: 10, search: $search) {

@@ -1,10 +1,10 @@
 export enum Route {
-  Schedule = 'ScheduleScreen',
-  Login = 'Login',
-  Main = 'Main',
-  HomeStack = 'HomeStack',
-  Home = 'Home',
-  Details = 'Details',
+  Schedule = "ScheduleScreen",
+  Login = "Login",
+  Main = "Main",
+  HomeStack = "HomeStack",
+  Home = "Home",
+  Details = "Details",
 }
 
 export type RootStackParamList = {
@@ -12,7 +12,7 @@ export type RootStackParamList = {
 
   [Route.Main]: undefined;
   [Route.Home]: undefined;
-  [Route.Details]: undefined;
+  [Route.Details]: { vehicleId: string };
 };
 
 export type ScheduleStackParamList = {

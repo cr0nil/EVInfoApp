@@ -1,15 +1,15 @@
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from "@react-navigation/native";
 
-import React from 'react';
+import React from "react";
 
-import {RootStackParamList, Route} from './typeScreen';
+import { RootStackParamList, Route } from "./typeScreen";
 
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
-} from '@react-navigation/native-stack';
-import {HomeScreen} from '../screens/HomeScreen';
-import {DetailsScreen} from '../screens/DetailsScreen';
+} from "@react-navigation/native-stack";
+import { HomeScreen } from "../screens/HomeScreen";
+import { DetailsScreen } from "../screens/DetailsScreen";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -32,7 +32,7 @@ export const AppNavigator = () => {
             name={Route.Details}
             component={DetailsScreen}
             options={{
-              headerShown: false,
+              headerShown: true,
             }}
           />
         </RootStack.Group>
